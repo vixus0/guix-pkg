@@ -8,6 +8,8 @@
   #:use-module (gnu packages linux)
   #:use-module (srfi srfi-1))
 
+(define kernel-config (local-file "./kernel.config"))
+
 (define-public linux-blobby
   (package
     (inherit linux-libre)
@@ -21,7 +23,11 @@
           (string-append
             "https://cdn.kernel.org/pub/linux/kernel/v5.x/"
             "linux-" version ".tar.xz"))
-        (sha256 (base32 "1v2lxwamnfm879a9qi9fwp5zyvlzjw9qa0aizidjbiwz5dk7gq8n"))))))
+        (sha256 (base32 "1v2lxwamnfm879a9qi9fwp5zyvlzjw9qa0aizidjbiwz5dk7gq8n"))))
+    (native-inputs
+      `(("kcconfig" ,kernel-config)
+        ,@(alist-delete "kconfig"
+                        (package-native-inputs linux-libre))))))
 
 (define (linux-firmware-version) "67b75798ea88f4b1d6ee6a3b5a0634d29620c094")
 (define (linux-firmware-source version)
