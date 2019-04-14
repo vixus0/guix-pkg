@@ -23,7 +23,7 @@
             "linux-" version ".tar.xz"))
         (sha256 (base32 "1v2lxwamnfm879a9qi9fwp5zyvlzjw9qa0aizidjbiwz5dk7gq8n"))))
     (native-inputs
-      `(("kconfig" ,(local-file "./kernel.config"))
+      `(("kconfig" ,(local-file "./5.0-x86_64.conf"))
         ,@(alist-delete "kconfig"
                         (package-native-inputs linux-libre))))))
 
